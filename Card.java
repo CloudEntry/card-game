@@ -19,16 +19,43 @@ public class Card {
 	 	this.name = name;
 	}
 	
-	public Card (String nameCard, int numAttributes) { 
+	public Card (String nameCard, int numAttributes, int numTheme) { 
 	 	this.name = nameCard;
+	 	this.numTheme = numTheme;
 	 	attributes = new ArrayList<Attribute>( numAttributes );
 	 	
-	 	for ( int i = 0; i < numAttributes; i++ ) {
-			nameAttribute = "Attribute " + Integer.toString( i );
+	 	//for ( int i = 0; i < numAttributes; i++ ) {
+			//nameAttribute = "Attribute " + Integer.toString( i );
 		
-			int value = (int) ( Math.random() * 10 );
-			attributes.add( new Attribute( nameAttribute, value ) );
-		}
+	 	if (numTheme == 1) {
+			attributes.add( new Attribute( "(0)HP", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(1)Attack", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(2)Defence", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(3)Strength", (int)(Math.random()*10)));
+	 		
+		} else if (numTheme == 2) {
+			attributes.add( new Attribute( "(0)Price", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(1)BHP", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(2)Top Speed", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(3)Acceleration", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(4)Handling", (int)(Math.random()*10)));
+			
+		} else if (numTheme == 3) {
+			attributes.add( new Attribute( "(0)Honour", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(1)Magic", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(2)Nobility", (int)(Math.random()*10)));
+			
+		} else if (numTheme == 4) {
+			attributes.add( new Attribute( "(0)Height", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(1)Weight", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(2)Killer Rating", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "(3)Intelligence", (int)(Math.random()*10)));
+			
+		} 
+	 	
+			//int value = (int) ( Math.random() * 10 );
+			//attributes.add( new Attribute( nameAttribute, value ) );
+		
 	 	
 	}
 	

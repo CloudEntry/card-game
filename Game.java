@@ -14,15 +14,27 @@ public class Game {
 	public boolean isPredictable;
 	public boolean isRandom;
 	
-	public Game(int numCards, int numAttributes, String playerName) {
+	public Game(int numPlayers, int numCards, int numTheme, String playerName) {
 		
 		this.numCards = numCards;
-		this.numAttributes = numAttributes;
+		this.numTheme = numTheme;
 		this.playerName = playerName;
+		numOpponents = numPlayers-1;
+		
 	}
 	
 
 	public void run() {
+		
+		if (numTheme == 1) {
+			numAttributes = 4;
+		} else if (numTheme == 2) {
+			numAttributes = 5;
+		} else if (numTheme == 3) {
+			numAttributes = 3;
+		} else if (numTheme == 4) {
+			numAttributes = 4;
+		} 
 		
 		ArrayList<Card> fullDeck = generateDeck( numCards, numAttributes );
 		ArrayList<Player> players = generatePlayers(numOpponents);
@@ -31,7 +43,7 @@ public class Game {
 		dealCards(fullDeck, players, numOpponents);
 		
 		
-		while(players.get(0).hand.isEmpty() == false || players.get(1).hand.isEmpty() == false) {
+		while(true) {
 			
 			
 			for(int i = 0; i < players.size(); i++) {
@@ -70,12 +82,14 @@ public class Game {
 				else if (players.get(i).isPredictable == true) {
 					//Pick the first attribute
 					numAttribute = 0;
+					System.out.println(players.get(i).playerName + " has picked attribute " + players.get(i).hand.peekFirst().attributes.get(numAttribute).name);
 					
 				}
 					
 				else if (players.get(i).isRandom == true) {
 					//Pick a random attribute
 					numAttribute = (int) ( Math.random() *  players.get(i).hand.peekFirst().attributes.size());
+					System.out.println(players.get(i).playerName + " has picked attribute " + players.get(i).hand.peekFirst().attributes.get(numAttribute).name);
 					
 				}
 					
@@ -84,9 +98,9 @@ public class Game {
 					//Pick the highest attribute
 					for(int m = 0; m < players.get(i).hand.peekFirst().attributes.size(); m++ ) {
 						
-						for(int n = i+1; n < players.size(); n++) {
+						for(int n = m+1; n < players.get(i).hand.peekFirst().attributes.size(); n++) {
 						
-							if (players.get(m).hand.peekFirst().attributes.get(m).value > players.get(n).hand.peekFirst().attributes.get(n).value) {
+							if (players.get(i).hand.peekFirst().attributes.get(m).value > players.get(i).hand.peekFirst().attributes.get(n).value) {
 								
 								numAttribute = m;
 								
@@ -99,6 +113,7 @@ public class Game {
 						}
 						
 					}
+					System.out.println(players.get(i).playerName + " has picked attribute " + players.get(i).hand.peekFirst().attributes.get(numAttribute).name);
 				}	
 
 				
@@ -155,17 +170,20 @@ public class Game {
 					
 			}
 			
+			if (players.get(0).hand.isEmpty()) {
+				
+				System.out.println("You lost the game!");
+				break;
+				
+			} else if (players.get(1).hand.isEmpty()){
+				
+				System.out.println("You won the game!");
+				break;
+			} 
+			
 		}
 		
-		if (players.get(0).hand.isEmpty()) {
-			
-			System.out.println("You lost the game!");
-			
-		} else {
-			
-			System.out.println("You won the game!");
-			
-		} 
+		
 	}
 		
 	
@@ -173,7 +191,7 @@ public class Game {
 		
 		ArrayList<Card> fullDeck = new ArrayList<Card>( numCards );
 		for ( int i =0; i<numCards; i++ ) {
-			Card card = new Card( "Card " + String.valueOf( i ), numAttributes );
+			Card card = new Card( "Card " + String.valueOf( i ), numAttributes, numTheme );
 			fullDeck.add( card );
 			//card.print();
 		}
@@ -190,7 +208,7 @@ public class Game {
 	
 		for (int i = 0; i<numOpponents; i++) {
 			//conditional statement: if user selects opponent to be random, predictable or smart ....
-			PredictableComputer opponent = new PredictableComputer("Predictable CPU " + String.valueOf(i + 1), numOpponents, isHuman, isSmart, isPredictable, isRandom);
+			SmartComputer opponent = new SmartComputer("SmartCPU" + String.valueOf(i + 1), numOpponents, isHuman, isSmart, isPredictable, isRandom);
 			players.add(opponent);
 			
 			

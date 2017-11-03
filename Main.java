@@ -10,34 +10,38 @@ public class Main {
 		String playerName = nameInput.next( );
 		
 		
+		System.out.println("Hi "+playerName+", please select number of players: ");
+		@SuppressWarnings("resource")
+		Scanner numPlayersInput = new Scanner( System.in );
+		int numPlayers = Integer.parseInt(numPlayersInput.next());
+		
+		
 		System.out.println("Hi "+playerName+", please select number of cards: ");
 		@SuppressWarnings("resource")
 		Scanner numCardsInput = new Scanner( System.in );
 		int numCards = Integer.parseInt(numCardsInput.next());
 		
 		
-		System.out.println("Hi "+playerName+", please select number of attributes: ");
+		/*System.out.println("Hi "+playerName+", please select number of attributes: ");
 		@SuppressWarnings("resource")
 		Scanner numAttributesInput = new Scanner( System.in );
-		int numAttributes = Integer.parseInt(numAttributesInput.next());
+		int numAttributes = Integer.parseInt(numAttributesInput.next());*/
 		
 		
-		/*System.out.println("Please select theme from: ");
-		System.out.println("1 - Warriors");
-		System.out.println("2 - Cars");
-		System.out.println("3 - Game of Thrones");
-		System.out.println("4 - Dinosaurs");
+		System.out.println("Please select theme from: ");
+		System.out.println("(1)Warriors");
+		System.out.println("(2)Cars");
+		System.out.println("(3)Game of Thrones");
+		System.out.println("(4)Dinosaurs");
+		@SuppressWarnings("resource")
 		Scanner numThemeInput = new Scanner(System.in);
-		int numTheme = Integer.parseInt(numThemeInput.next());*/
+		int numTheme = Integer.parseInt(numThemeInput.next());
 		
 		
-		
-					
-		
-		Game game = new Game(numCards, numAttributes, playerName);
+		Game game = new Game(numPlayers, numCards, numTheme, playerName);
 		game.run();
 		
-		System.exit( 0 ); //success
+		System.exit(0); //success
 		
 	}
 }
