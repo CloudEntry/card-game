@@ -12,51 +12,42 @@ public class Card {
 	//switched to public for testing
 	public ArrayList<Attribute> attributes;
 	
-	public Card (){}
+	public Card(){}
 	//
 	
-	public Card (String name) { 
+	public Card(String name) { 
 	 	this.name = name;
 	}
 	
-	public Card (String nameCard, int numAttributes, int numTheme) { 
+	public Card(String nameCard, int numAttributes, int numTheme) { 
 	 	this.name = nameCard;
 	 	this.numTheme = numTheme;
-	 	attributes = new ArrayList<Attribute>( numAttributes );
-	 	
-	 	//for ( int i = 0; i < numAttributes; i++ ) {
-			//nameAttribute = "Attribute " + Integer.toString( i );
+	 	attributes = new ArrayList<Attribute>(numAttributes);
 		
-	 	if (numTheme == 1) {
-			attributes.add( new Attribute( "(0)HP", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(1)Attack", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(2)Defence", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(3)Strength", (int)(Math.random()*10)));
+	 	if(numTheme == 1) {
+			attributes.add( new Attribute( "HP", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Attack", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Defence", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Strength", (int)(Math.random()*10)));
 	 		
-		} else if (numTheme == 2) {
-			attributes.add( new Attribute( "(0)Price", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(1)BHP", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(2)Top Speed", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(3)Acceleration", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(4)Handling", (int)(Math.random()*10)));
+		}else if(numTheme == 2) {
+			attributes.add( new Attribute( "Price", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "BHP", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Top Speed", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Acceleration", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Handling", (int)(Math.random()*10)));
 			
-		} else if (numTheme == 3) {
-			attributes.add( new Attribute( "(0)Honour", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(1)Magic", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(2)Nobility", (int)(Math.random()*10)));
+		}else if(numTheme == 3) {
+			attributes.add( new Attribute( "Honour", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Magic", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Nobility", (int)(Math.random()*10)));
 			
-		} else if (numTheme == 4) {
-			attributes.add( new Attribute( "(0)Height", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(1)Weight", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(2)Killer Rating", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "(3)Intelligence", (int)(Math.random()*10)));
-			
+		}else if(numTheme == 4) {
+			attributes.add( new Attribute( "Height", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Weight", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Killer Rating", (int)(Math.random()*10)));
+			attributes.add( new Attribute( "Intelligence", (int)(Math.random()*10)));
 		} 
-	 	
-			//int value = (int) ( Math.random() * 10 );
-			//attributes.add( new Attribute( nameAttribute, value ) );
-		
-	 	
 	}
 	
 	/**
@@ -70,7 +61,7 @@ public class Card {
 	/** 
 	* @param s has type String and will be the new name
 	*/
-	public void setName (String name) {
+	public void setName(String name) {
 		if ( name.length() > 1 ) //name = "empty";
 			this.name = name; 
 	}
@@ -79,11 +70,9 @@ public class Card {
 	* Prints name 
 	*/
 	public void print() { 
-    	System.out.println( "------- " + name );    	
-    	for ( Attribute a : attributes ) {
-			 a.print();
+    	System.out.println(name);    	
+    	for (Attribute a : attributes ) {
+    		a.print();
 		 }
-		
-    		
     }
 }

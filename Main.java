@@ -16,7 +16,7 @@ public class Main {
 		int numPlayers = Integer.parseInt(numPlayersInput.next());
 		
 		
-		System.out.println("Hi "+playerName+", please select number of cards: ");
+		System.out.println("Please select number of cards: ");
 		@SuppressWarnings("resource")
 		Scanner numCardsInput = new Scanner( System.in );
 		int numCards = Integer.parseInt(numCardsInput.next());
