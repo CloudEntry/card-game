@@ -11,14 +11,18 @@ public class Human extends Player {
 		this.playerName = playerName;
 	}
 	
-	public String selectAttribute() {
-		
+	public void takeInput() {
 		//Selecting Attribute
-		System.out.println("Choose an attribute:");
+		System.out.println("Choose an attribute (type number):");
 		
-		@SuppressWarnings("resource")
-		Scanner AttributeInput = new Scanner(System.in);
-		int numAttribute = Integer.parseInt(AttributeInput.next());
+		while(true) {
+			Scanner s = new Scanner(System.in);
+			numAttribute = Integer.parseInt(s.next()) - 1;
+			if(numAttribute > -1 && numAttribute < hand.peekFirst().attributes.size()) break;
+		}	
+	}
+	
+	public String selectAttribute() {
 		
 		Card card = hand.peekFirst(); //first card
 		Attribute a = card.attributes.get(numAttribute);

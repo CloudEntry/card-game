@@ -25,28 +25,28 @@ public class Card {
 	 	attributes = new ArrayList<Attribute>(numAttributes);
 		
 	 	if(numTheme == 1) {
-			attributes.add( new Attribute( "HP", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Attack", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Defence", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Strength", (int)(Math.random()*10)));
+			attributes.add( new Attribute("HP", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Attack", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Defence", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Strength", (int)(Math.random()*10)));
 	 		
 		}else if(numTheme == 2) {
-			attributes.add( new Attribute( "Price", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "BHP", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Top Speed", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Acceleration", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Handling", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Price", (int)(Math.random()*10)));
+			attributes.add( new Attribute("BHP", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Top Speed", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Acceleration", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Handling", (int)(Math.random()*10)));
 			
 		}else if(numTheme == 3) {
-			attributes.add( new Attribute( "Honour", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Magic", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Nobility", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Honour", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Magic", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Nobility", (int)(Math.random()*10)));
 			
 		}else if(numTheme == 4) {
-			attributes.add( new Attribute( "Height", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Weight", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Killer Rating", (int)(Math.random()*10)));
-			attributes.add( new Attribute( "Intelligence", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Height", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Weight", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Killer Rating", (int)(Math.random()*10)));
+			attributes.add( new Attribute("Intelligence", (int)(Math.random()*10)));
 		} 
 	}
 	
@@ -70,9 +70,10 @@ public class Card {
 	* Prints name 
 	*/
 	public void print() { 
-    	System.out.println(name);    	
-    	for (Attribute a : attributes ) {
-    		a.print();
+    	System.out.println(" -----"+name+"-----");    	
+    	for (int i = 0; i < attributes.size(); i++) {
+    		System.out.print(String.valueOf(i+1) + " - ");
+    		attributes.get(i).print();
 		 }
     }
 }

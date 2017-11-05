@@ -4,41 +4,41 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		System.out.println("Enter your name: ");
-		@SuppressWarnings("resource")
-		Scanner nameInput = new Scanner( System.in );
-		String playerName = nameInput.next( );
+		int numPlayers;
+		int numCards;
+		int numTheme;
 		
 		
-		System.out.println("Hi "+playerName+", please select number of players: ");
-		@SuppressWarnings("resource")
-		Scanner numPlayersInput = new Scanner( System.in );
-		int numPlayers = Integer.parseInt(numPlayersInput.next());
+		
+		
+		System.out.println("Please select number of players: ");
+		while(true){
+			Scanner s2 = new Scanner( System.in );			
+			numPlayers = Integer.parseInt(s2.next());
+			if(numPlayers > 1) break;
+		}
 		
 		
 		System.out.println("Please select number of cards: ");
-		@SuppressWarnings("resource")
-		Scanner numCardsInput = new Scanner( System.in );
-		int numCards = Integer.parseInt(numCardsInput.next());
+		while(true) {
+			Scanner s3 = new Scanner( System.in );
+			numCards = Integer.parseInt(s3.next());
+			if(numCards % numPlayers == 0) break;
+		}
 		
 		
-		/*System.out.println("Hi "+playerName+", please select number of attributes: ");
-		@SuppressWarnings("resource")
-		Scanner numAttributesInput = new Scanner( System.in );
-		int numAttributes = Integer.parseInt(numAttributesInput.next());*/
+		System.out.println("Please select theme (type number):");
+		System.out.println("1 - Warriors");
+		System.out.println("2 - Cars");
+		System.out.println("3 - Game of Thrones");
+		System.out.println("4 - Dinosaurs");
+		while(true) {
+			Scanner s4 = new Scanner(System.in);
+			numTheme = Integer.parseInt(s4.next());
+			if(numTheme > 0 && numTheme < 5) break;
+		}
 		
-		
-		System.out.println("Please select theme from: ");
-		System.out.println("(1)Warriors");
-		System.out.println("(2)Cars");
-		System.out.println("(3)Game of Thrones");
-		System.out.println("(4)Dinosaurs");
-		@SuppressWarnings("resource")
-		Scanner numThemeInput = new Scanner(System.in);
-		int numTheme = Integer.parseInt(numThemeInput.next());
-		
-		
-		Game game = new Game(numPlayers, numCards, numTheme, playerName);
+		Game game = new Game(numPlayers, numCards, numTheme);
 		game.run();
 		
 		System.exit(0); //success

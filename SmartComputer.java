@@ -10,9 +10,9 @@ public class SmartComputer extends Player {
 		this.playerName = playerName;
 	}
 	
+	public void takeInput() {}
+	
 	public String selectAttribute() {
-		
-		int numAttribute = 0;
 		
 		//Pick the highest attribute
 		for(int m = 0; m < hand.peekFirst().attributes.size(); m++ ) {

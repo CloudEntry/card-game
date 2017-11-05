@@ -10,6 +10,8 @@ public class PredictableComputer extends Player {
 		this.playerName = playerName;
 	}
 	
+	public void takeInput() {}
+	
 	public String selectAttribute() {
 		Card card = hand.peekFirst(); //first card
 		Attribute a = card.attributes.get(0);

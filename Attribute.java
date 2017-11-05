@@ -12,7 +12,7 @@ public class Attribute {
 	}
 	
 	public void print() {
-		System.out.println( name + ": " + value );
+		System.out.println("  " + name + ": " + value);
 		
 	}
 }

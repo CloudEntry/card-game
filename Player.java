@@ -4,6 +4,8 @@ public abstract class Player {
 	
 	protected String playerName;
 	
+	protected int numAttribute;
+	
 	protected ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	
 	public ArrayDeque<Card> getHand() {
@@ -17,6 +19,8 @@ public abstract class Player {
 	public String getName() {
 		return playerName;
 	}
+	
+	public abstract void takeInput();
 	
 	public abstract String selectAttribute();
 }	
