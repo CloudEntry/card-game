@@ -9,8 +9,6 @@ public class Main {
 		int numTheme;
 		
 		
-		
-		
 		System.out.println("Please select number of players: ");
 		while(true){
 			Scanner s2 = new Scanner( System.in );			
@@ -23,7 +21,7 @@ public class Main {
 		while(true) {
 			Scanner s3 = new Scanner( System.in );
 			numCards = Integer.parseInt(s3.next());
-			if(numCards % numPlayers == 0) break;
+			if(numCards % numPlayers == 0 && numCards > 0) break;
 		}
 		
 		

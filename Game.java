@@ -23,73 +23,100 @@ public class Game {
 		
 		dealCards(fullDeck, players);
 		
-		while(true) {
-			
+		do{
 			for(int i = 0; i < players.size(); i++) {
 				
-				for(int j = 0; j < players.size(); j++) {
-					//Player info
-					System.out.println(players.get(j).playerName + ": " + players.get(j).hand.size() + " cards");
-					
-					if(players.get(j).hand.size() == 0) players.remove(j);
-				}
-				System.out.print("\n" + players.get(i).getName() + "'s turn: \n");
+				cardCount(players);
 				
-				System.out.println("__________________");
-				
-				players.get(i).hand.peekFirst().print();
-				
-				System.out.println("__________________");
+				printCard(players, i);
 				
 				players.get(i).takeInput();
 				
-				System.out.println(players.get(i).getName() + " picked " + players.get(i).selectAttribute());
+				System.out.println(players.get(i).getName() + " picked " + players.get(i).selectAttribute());				
 				
-				for(int n = 0; n < players.get(i).hand.peekFirst().attributes.size(); n++) {
-					
-					if(players.get(i).hand.peekFirst().attributes.get(n).name == players.get(i).selectAttribute()) 
-						numAttribute = n;
-				}
-
-				for(int j = 0; j < players.size(); j++) {
-					
-				    for(int k = j+1; k < players.size(); k++) {
-				      // compare list.get(i) and list.get(j)
-				    	
-				    	System.out.print(players.get(j).getName() + ": ");
-				    	players.get(j).hand.peekFirst().attributes.get(numAttribute).print();
-						
-						System.out.print(players.get(k).getName() + ": ");
-						players.get(k).hand.peekFirst().attributes.get(numAttribute).print();
-						
-				    	//The actual gameplay
-						if(players.get(j).hand.peekFirst().attributes.get(numAttribute).value > players.get(k).hand.peekFirst().attributes.get(numAttribute).value) {
-							
-							System.out.print(players.get(j).getName() + " wins! \n");
-							
-							//Add player2's card to player 1
-							players.get(j).hand.addLast(players.get(k).hand.pop());
-							//Send player's own card to back
-							players.get(j).hand.addLast(players.get(j).hand.pop());
-							
-						}else {
-							System.out.print(players.get(k).getName() + " wins! \n");
-							
-							//Add player1's card to player 2
-							players.get(k).hand.addLast(players.get(j).hand.pop());
-							//Send player's own card to back
-							players.get(k).hand.addLast(players.get(k).hand.pop());	
-						}  
-				    }		
-				}	
+				gamePlay(players, i);
 			}
-			if(players.size() == 1) {
-				System.out.println(players.get(0).getName() + " won the game!");
-				break;
-			}
-		}
-	}
+			
+		}while(players.size() > 1);
 		
+		System.out.println(players.get(0).getName() + " won the game!");
+	}
+	
+	public void cardCount(ArrayList<Player> players) {
+		
+		for(int j = 0; j < players.size(); j++) {
+			//Player info
+			System.out.println(players.get(j).playerName + ": " + players.get(j).hand.size() + " cards");	
+		}
+		
+	}
+	
+	public void printCard(ArrayList<Player> players, int i) {
+
+			
+		System.out.print("\n" + players.get(i).getName() + "'s turn: \n");
+		
+		System.out.println("__________________");
+		
+		players.get(i).hand.peekFirst().print();
+		
+		System.out.println("__________________");
+			
+		}
+	
+	public int getNumAttribute(ArrayList<Player> players, int i) {
+		
+		for(int n = 0; n < players.get(i).hand.peekFirst().attributes.size(); n++) {
+			
+			if(players.get(i).hand.peekFirst().attributes.get(n).name == players.get(i).selectAttribute()) 
+				numAttribute = n;
+		}
+		return numAttribute;
+	}
+	
+	public void gamePlay(ArrayList<Player> players, int i) {
+		
+		String winner = "";
+		
+		//Print value of the chosen attribute for each player
+		for(int j = 0; j < players.size(); j++) {
+			System.out.print(players.get(j).playerName + "'s ");
+			players.get(j).hand.peekFirst().attributes.get(getNumAttribute(players, i)).print();
+		}
+		
+		//string value for printing winner
+		winner = sortPlayers(players, i).get(players.size() - 1).getName();
+		
+		//Add losing players' cards to winners hand
+		for(int j = 0; j < players.size() - 1; j++) {
+			sortPlayers(players, i).get(players.size()-1).hand.addLast(sortPlayers(players, i).get(j).hand.pop());
+		}
+		
+		//Everyone move first card to back of hand
+		for(int j = 0; j < players.size(); j++) {
+			sortPlayers(players, i).get(j).hand.addLast(sortPlayers(players, i).get(j).hand.pop());
+		}
+		
+		//Print winner
+		System.out.println(winner + " wins!");
+		
+		//Remove player from arraylist when they have no cards
+		if(players.get(i).hand.size() < 1) players.remove(i);
+	}
+	public ArrayList<Player> sortPlayers(ArrayList<Player> players, int i){
+		
+		ArrayList<Player> sortedPlayers = players;
+		//Order the list of players from player with lowest chosen attribute value to highest so winner is at the top
+		Collections.sort(sortedPlayers, new Comparator<Player>() {
+			@Override
+			public int compare(Player player1, Player player2) {
+				return Integer.compare(player1.hand.peekFirst().attributes.get(getNumAttribute(players, i)).value, player2.hand.peekFirst().attributes.get(getNumAttribute(players, i)).value);
+			}
+		});
+		
+		return sortedPlayers;
+	}
+	
 	public ArrayList<Card> generateDeck(int numCards, int numAttributes) {
 		
 		ArrayList<Card> fullDeck = new ArrayList<Card>( numCards );
@@ -102,6 +129,7 @@ public class Game {
 		}
 		return fullDeck;
 	}
+	
 	
 	public ArrayList<Player> generatePlayers(int numOpponents) {
 		
@@ -143,6 +171,7 @@ public class Game {
 	}
 	
 	//Deal cards to each player
+
 	public void dealCards(ArrayList<Card> fullDeck, ArrayList<Player> players) {
 		
 		while(fullDeck.isEmpty() == false) {
