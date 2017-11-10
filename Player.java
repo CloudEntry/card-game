@@ -2,12 +2,14 @@ import java.util.ArrayDeque;;
 
 public abstract class Player {
 	
+	
 	protected String playerName;
 	
 	protected int numAttribute;
 	
 	protected ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	
+
 	/**
 	 * 
 	 * @return

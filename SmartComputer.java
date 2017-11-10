@@ -18,13 +18,7 @@ public class SmartComputer extends Player {
 		this.playerName = playerName;
 	}
 	
-	public void takeInput() {}
-	
-	/**
-	 * 
-	 */
-	public String selectAttribute() {
-		
+	public void takeInput() {
 		//Pick the highest attribute
 		for(int m = 0; m < hand.peekFirst().attributes.size(); m++ ) {
 			
@@ -40,6 +34,14 @@ public class SmartComputer extends Player {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	public String selectAttribute() {
+		
+		
 		Card card = hand.peekFirst(); //first card
 		Attribute a = card.attributes.get(numAttribute);
 		return a.getName();	

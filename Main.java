@@ -2,10 +2,24 @@ import java.util.*;
 
 public class Main {
 
-	static int numPlayers, numCards, numTheme;
+	/**
+	 * The number of players
+	 */
+	static int numPlayers;
 	
 	/**
-	 * 
+	 * The number of cards in the deck
+	 */
+	static int numCards;
+	
+	/**
+	 * The number associated with the theme
+	 */
+	static int numTheme;
+	
+	/**
+	 * Main method
+	 * Calls {@link Game#run()}
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -20,6 +34,9 @@ public class Main {
 		System.exit(0); //success
 	}
 	
+	/**
+	 * Takes uses input for number of players
+	 */
 	public static void selectNumPlayers() {
 		System.out.println("Please select number of players: ");
 		while(true){
@@ -29,6 +46,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Takes uses input for number of cards
+	 */
 	public static void selectNumCards() {
 		System.out.println("Please select number of cards: ");
 		while(true) {
@@ -38,6 +58,9 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Takes input for number to select theme
+	 */
 	public static void selectTheme() {
 		System.out.println("Please select theme (type number):");
 		System.out.println("1 - Warriors");

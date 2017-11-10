@@ -18,10 +18,10 @@ public class Card {
 	 * @param numAttributes
 	 * @param numTheme
 	 */
-	public Card(String nameCard, int numAttributes, int numTheme) { 
+	public Card(String nameCard, int numTheme) { 
 	 	this.name = nameCard;
 	 	this.numTheme = numTheme;
-	 	attributes = new ArrayList<Attribute>(numAttributes);
+	 	attributes = new ArrayList<Attribute>();
 		
 	 	if(numTheme == 1) {
 			attributes.add( new Attribute("HP", (int)(Math.random()*10)));

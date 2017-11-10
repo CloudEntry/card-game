@@ -2,14 +2,48 @@ import java.util.*;
 
 public class Game {
 	
-	int numCards, numAttributes, numAttribute, numPlayers,numTheme;
+	/**
+	 * The number of cards
+	 */
+	int numCards;
+	
+	/**
+	 * The number to represent selected attribute
+	 */
+	int numAttribute;
+	
+	/**
+	 * The number of players
+	 */
+	int numPlayers;
+	
+	/**
+	 * The number to represent the theme
+	 */
+	int numTheme;
+	
+	/**
+	 * The name of the player
+	 */
 	String playerName;
+	
+	/**
+	 * Boolean whether the game has finished or not
+	 */
 	boolean gameFinished = false;
+	
+	/**
+	 * An arraylist of players
+	 */
 	ArrayList<Player> players;
+	
+	/**
+	 * An arraylist of cards to represent the deck
+	 */
 	ArrayList<Card> fullDeck;
 	
 	/**
-	 * 
+	 * Constructor method for the game class
 	 * @param numPlayers
 	 * @param numCards
 	 * @param numTheme
@@ -27,7 +61,7 @@ public class Game {
 	public void run() {
 		
 		players = generatePlayers(numPlayers);
-		fullDeck = generateDeck(numCards, numAttributes);
+		fullDeck = generateDeck(numCards);
 		
 		dealCards();
 		
@@ -35,16 +69,10 @@ public class Game {
 			
 			gamePlay();
 			
-			checkWinner();
-			
+			if(players.size() == 1) gameFinished = true;
 		}
 		
 		System.out.println(players.get(0).getName() + " won the game!");
-	}
-	
-	public void checkWinner() {
-		
-		if(players.size() == 1) gameFinished = true;
 	}
 	
 	/**
@@ -67,19 +95,19 @@ public class Game {
 			
 			findWinner(i);
 			
-			moveCardToBack();
-			
 			removePlayers();
-			
 		}
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public void removePlayers() {
 		
-		for(int i = 0; i < players.size(); i++) {
+		for(Iterator<Player> it = players.iterator(); it.hasNext();) {
 			//Remove player from arraylist when they have no cards
-			if(players.get(i).hand.size() < 1) players.remove(i);
+			if(it.next().hand.size() == 0) it.remove();
 		}
 	}
 	
@@ -99,7 +127,6 @@ public class Game {
 	
 	/**
 	 *
-	 * @param players
 	 * @param i
 	 */
 	public void findWinner(int i) {
@@ -122,28 +149,15 @@ public class Game {
 		for(int j = 0; j < players.size(); j++) {
 			
 			players.get(winningPlayer).hand.addLast(players.get(j).hand.pop());
+			
+			players.get(winningPlayer).hand.addLast(players.get(winningPlayer).hand.pop());
 		}
 		
 		System.out.println(winner + " wins!");
 	}
-		
-	/**
-	 * 
-	 * @param players
-	 */
-	public void moveCardToBack() {
-		//Everyone move first card to back of hand
-		for(int j = 0; j < players.size() - 1; j++) {
-			
-			players.get(j).hand.addLast(players.get(j).hand.pop());
-		}
-		
-		
-	}
 	
 	/**
 	 * 
-	 * @param players
 	 */
 	public void cardCount() {
 		
@@ -156,7 +170,6 @@ public class Game {
 	
 	/**
 	 * 
-	 * @param players
 	 * @param i
 	 */
 	public void printCard(int i) {
@@ -174,7 +187,6 @@ public class Game {
 	
 	/**
 	 * 
-	 * @param players
 	 * @param i
 	 * @return
 	 */
@@ -194,13 +206,13 @@ public class Game {
 	 * @param numAttributes
 	 * @return fullDeck
 	 */
-	public ArrayList<Card> generateDeck(int numCards, int numAttributes) {
+	public ArrayList<Card> generateDeck(int numCards) {
 		
 		ArrayList<Card> fullDeck = new ArrayList<Card>( numCards );
 		
 		for (int i = 0; i < numCards; i++) {
 			
-			Card card = new Card("Card " + String.valueOf(i), numAttributes, numTheme);
+			Card card = new Card("Card " + String.valueOf(i), numTheme);
 			
 			fullDeck.add(card);
 		}
@@ -208,7 +220,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Generates the arraylist of players
 	 * @param numOpponents
 	 * @return
 	 */
@@ -252,7 +264,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Deals the cards out to each player
 	 * @param fullDeck
 	 * @param players
 	 */

@@ -21,14 +21,16 @@ public class PredictableComputer extends Player {
 	/**
 	 * 
 	 */
-	public void takeInput() {}
+	public void takeInput() {
+		numAttribute = 0;
+	}
 	
 	/**
 	 * 
 	 */
 	public String selectAttribute() {
 		Card card = hand.peekFirst(); //first card
-		Attribute a = card.attributes.get(0);
+		Attribute a = card.attributes.get(numAttribute);
 		return a.getName();
 	}
 }

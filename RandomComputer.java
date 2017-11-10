@@ -18,15 +18,18 @@ public class RandomComputer extends Player {
 		this.playerName = playerName;
 	}
 	
-	public void takeInput() {}
+	public void takeInput() {
+		
+		//Pick a random attribute
+		numAttribute = (int)Math.floor(Math.random() * hand.peekFirst().attributes.size());
+	}
 	
 	/**
 	 * 
 	 */
 	public String selectAttribute() {
 		
-		//Pick a random attribute
-		int numAttribute = (int)Math.floor(Math.random() * hand.peekFirst().attributes.size());
+		
 		
 		Card card = hand.getFirst(); //first card
 		Attribute a = card.attributes.get(numAttribute);
