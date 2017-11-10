@@ -3,14 +3,25 @@ import java.util.Scanner;
 
 public class Human extends Player {
 	
+	/**
+	 * 
+	 * @param hand
+	 */
 	public Human(ArrayDeque<Card> hand){
 		this.hand = hand;
 	}
 	
+	/**
+	 * 
+	 * @param playerName
+	 */
 	public Human(String playerName) {
 		this.playerName = playerName;
 	}
 	
+	/**
+	 * 
+	 */
 	public void takeInput() {
 		//Selecting Attribute
 		System.out.println("Choose an attribute (type number):");
@@ -22,10 +33,13 @@ public class Human extends Player {
 		}	
 	}
 	
+	/**
+	 * 
+	 */
 	public String selectAttribute() {
 		
 		Card card = hand.peekFirst(); //first card
 		Attribute a = card.attributes.get(numAttribute);
-		return a.name;
+		return a.getName();
 	}
 }

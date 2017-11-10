@@ -8,19 +8,38 @@ public abstract class Player {
 	
 	protected ArrayDeque<Card> hand = new ArrayDeque<Card>();
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayDeque<Card> getHand() {
 		return hand;
 	}
 	
+	/**
+	 * 
+	 * @param playerName
+	 */
 	public void setName(String playerName) {
 		this.playerName = playerName;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return playerName;
 	}
-	
+
+	/**
+	 * 
+	 */
 	public abstract void takeInput();
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public abstract String selectAttribute();
 }	

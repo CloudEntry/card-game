@@ -2,13 +2,18 @@ import java.util.*;
 
 public class Game {
 	
-	int numCards;
-	int numAttributes;
-	int numAttribute;
-	int numPlayers;
-	int numTheme;
+	int numCards, numAttributes, numAttribute, numPlayers,numTheme;
 	String playerName;
+	boolean gameFinished = false;
+	ArrayList<Player> players;
+	ArrayList<Card> fullDeck;
 	
+	/**
+	 * 
+	 * @param numPlayers
+	 * @param numCards
+	 * @param numTheme
+	 */
 	public Game(int numPlayers, int numCards, int numTheme) {
 		
 		this.numCards = numCards;
@@ -16,33 +21,131 @@ public class Game {
 		this.numPlayers = numPlayers;
 	}
 	
+	/**
+	 * 
+	 */
 	public void run() {
 		
-		ArrayList<Player> players = generatePlayers(numPlayers);
-		ArrayList<Card> fullDeck = generateDeck(numCards, numAttributes);
+		players = generatePlayers(numPlayers);
+		fullDeck = generateDeck(numCards, numAttributes);
 		
-		dealCards(fullDeck, players);
+		dealCards();
 		
-		do{
-			for(int i = 0; i < players.size(); i++) {
-				
-				cardCount(players);
-				
-				printCard(players, i);
-				
-				players.get(i).takeInput();
-				
-				System.out.println(players.get(i).getName() + " picked " + players.get(i).selectAttribute());				
-				
-				gamePlay(players, i);
-			}
+		while(gameFinished == false) {
 			
-		}while(players.size() > 1);
+			gamePlay();
+			
+			checkWinner();
+			
+		}
 		
 		System.out.println(players.get(0).getName() + " won the game!");
 	}
 	
-	public void cardCount(ArrayList<Player> players) {
+	public void checkWinner() {
+		
+		if(players.size() == 1) gameFinished = true;
+	}
+	
+	/**
+	 * 
+	 * @param players
+	 */
+	public void gamePlay() {
+		
+		for(int i = 0; i < players.size(); i++) {
+			
+			cardCount();
+			
+			printCard(i);
+			
+			players.get(i).takeInput();
+			
+			System.out.println(players.get(i).getName() + " picked " + players.get(i).selectAttribute());
+			
+			printAttributes(i);
+			
+			findWinner(i);
+			
+			moveCardToBack();
+			
+			removePlayers();
+			
+		}
+		
+	}
+	
+	public void removePlayers() {
+		
+		for(int i = 0; i < players.size(); i++) {
+			//Remove player from arraylist when they have no cards
+			if(players.get(i).hand.size() < 1) players.remove(i);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param players
+	 * @param i
+	 */
+	public void printAttributes(int i) {
+		
+		//Print value of the chosen attribute for each player
+		for(int j = 0; j < players.size(); j++) {
+			System.out.print(players.get(j).playerName + "'s ");
+			players.get(j).hand.peekFirst().attributes.get(getNumAttribute(i)).print();
+		}
+	}
+	
+	/**
+	 *
+	 * @param players
+	 * @param i
+	 */
+	public void findWinner(int i) {
+		
+		String winner = "";
+		int winningPlayer = i;
+		
+		//Add losing players' cards to winners hand
+		for(int j = 0; j < players.size(); j++) {
+		    	
+			if(players.get(j).hand.peekFirst().attributes.get(numAttribute).value > players.get(winningPlayer).hand.peekFirst().attributes.get(numAttribute).value) {
+				
+				winningPlayer = j;	
+			}
+						
+			winner = players.get(winningPlayer).getName();
+			
+		}	
+		
+		for(int j = 0; j < players.size(); j++) {
+			
+			players.get(winningPlayer).hand.addLast(players.get(j).hand.pop());
+		}
+		
+		System.out.println(winner + " wins!");
+	}
+		
+	/**
+	 * 
+	 * @param players
+	 */
+	public void moveCardToBack() {
+		//Everyone move first card to back of hand
+		for(int j = 0; j < players.size() - 1; j++) {
+			
+			players.get(j).hand.addLast(players.get(j).hand.pop());
+		}
+		
+		
+	}
+	
+	/**
+	 * 
+	 * @param players
+	 */
+	public void cardCount() {
 		
 		for(int j = 0; j < players.size(); j++) {
 			//Player info
@@ -51,7 +154,12 @@ public class Game {
 		
 	}
 	
-	public void printCard(ArrayList<Player> players, int i) {
+	/**
+	 * 
+	 * @param players
+	 * @param i
+	 */
+	public void printCard(int i) {
 
 			
 		System.out.print("\n" + players.get(i).getName() + "'s turn: \n");
@@ -64,59 +172,28 @@ public class Game {
 			
 		}
 	
-	public int getNumAttribute(ArrayList<Player> players, int i) {
+	/**
+	 * 
+	 * @param players
+	 * @param i
+	 * @return
+	 */
+	public int getNumAttribute(int i) {
 		
 		for(int n = 0; n < players.get(i).hand.peekFirst().attributes.size(); n++) {
 			
-			if(players.get(i).hand.peekFirst().attributes.get(n).name == players.get(i).selectAttribute()) 
+			if(players.get(i).hand.peekFirst().attributes.get(n).getName() == players.get(i).selectAttribute()) 
 				numAttribute = n;
 		}
 		return numAttribute;
 	}
 	
-	public void gamePlay(ArrayList<Player> players, int i) {
-		
-		String winner = "";
-		
-		//Print value of the chosen attribute for each player
-		for(int j = 0; j < players.size(); j++) {
-			System.out.print(players.get(j).playerName + "'s ");
-			players.get(j).hand.peekFirst().attributes.get(getNumAttribute(players, i)).print();
-		}
-		
-		//string value for printing winner
-		winner = sortPlayers(players, i).get(players.size() - 1).getName();
-		
-		//Add losing players' cards to winners hand
-		for(int j = 0; j < players.size() - 1; j++) {
-			sortPlayers(players, i).get(players.size()-1).hand.addLast(sortPlayers(players, i).get(j).hand.pop());
-		}
-		
-		//Everyone move first card to back of hand
-		for(int j = 0; j < players.size(); j++) {
-			sortPlayers(players, i).get(j).hand.addLast(sortPlayers(players, i).get(j).hand.pop());
-		}
-		
-		//Print winner
-		System.out.println(winner + " wins!");
-		
-		//Remove player from arraylist when they have no cards
-		if(players.get(i).hand.size() < 1) players.remove(i);
-	}
-	public ArrayList<Player> sortPlayers(ArrayList<Player> players, int i){
-		
-		ArrayList<Player> sortedPlayers = players;
-		//Order the list of players from player with lowest chosen attribute value to highest so winner is at the top
-		Collections.sort(sortedPlayers, new Comparator<Player>() {
-			@Override
-			public int compare(Player player1, Player player2) {
-				return Integer.compare(player1.hand.peekFirst().attributes.get(getNumAttribute(players, i)).value, player2.hand.peekFirst().attributes.get(getNumAttribute(players, i)).value);
-			}
-		});
-		
-		return sortedPlayers;
-	}
-	
+	/**
+	 * Generates a deck of cards
+	 * @param numCards
+	 * @param numAttributes
+	 * @return fullDeck
+	 */
 	public ArrayList<Card> generateDeck(int numCards, int numAttributes) {
 		
 		ArrayList<Card> fullDeck = new ArrayList<Card>( numCards );
@@ -130,7 +207,11 @@ public class Game {
 		return fullDeck;
 	}
 	
-	
+	/**
+	 * 
+	 * @param numOpponents
+	 * @return
+	 */
 	public ArrayList<Player> generatePlayers(int numOpponents) {
 		
 		ArrayList<Player> players = new ArrayList<Player>(numOpponents);
@@ -170,9 +251,12 @@ public class Game {
 		return players;
 	}
 	
-	//Deal cards to each player
-
-	public void dealCards(ArrayList<Card> fullDeck, ArrayList<Player> players) {
+	/**
+	 * 
+	 * @param fullDeck
+	 * @param players
+	 */
+	public void dealCards() {
 		
 		while(fullDeck.isEmpty() == false) {
 		
@@ -182,7 +266,4 @@ public class Game {
 			}
 		}
 	}
-}
-/** Calls {@link Card#print()	}.	
-	* @param args array of Strings from the user.*/
-	
+}	

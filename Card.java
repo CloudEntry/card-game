@@ -12,13 +12,12 @@ public class Card {
 	//switched to public for testing
 	public ArrayList<Attribute> attributes;
 	
-	public Card(){}
-	//
-	
-	public Card(String name) { 
-	 	this.name = name;
-	}
-	
+	/**
+	 * 
+	 * @param nameCard
+	 * @param numAttributes
+	 * @param numTheme
+	 */
 	public Card(String nameCard, int numAttributes, int numTheme) { 
 	 	this.name = nameCard;
 	 	this.numTheme = numTheme;
@@ -55,7 +54,6 @@ public class Card {
 	*/
 	public String getName() {
 		return name; 
-		
 	}
 	
 	/** 

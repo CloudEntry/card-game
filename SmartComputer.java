@@ -2,16 +2,27 @@ import java.util.ArrayDeque;
 
 public class SmartComputer extends Player {
 	
+	/**
+	 * 
+	 * @param hand
+	 */
 	public SmartComputer(ArrayDeque<Card> hand){
 		this.hand = hand;
 	}
 	
+	/**
+	 * 
+	 * @param playerName
+	 */
 	public SmartComputer(String playerName) {
 		this.playerName = playerName;
 	}
 	
 	public void takeInput() {}
 	
+	/**
+	 * 
+	 */
 	public String selectAttribute() {
 		
 		//Pick the highest attribute
@@ -29,9 +40,8 @@ public class SmartComputer extends Player {
 				}
 			}
 		}
-		
 		Card card = hand.peekFirst(); //first card
 		Attribute a = card.attributes.get(numAttribute);
-		return a.name;	
+		return a.getName();	
 	}
 }
