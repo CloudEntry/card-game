@@ -1,9 +1,15 @@
 import java.util.ArrayDeque;
 
+/**
+ * SmartComputer.java - smart computer player.
+ * @see Player
+ * @author Jack Gee
+ * @version 1.0
+ */
 public class SmartComputer extends Player {
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param hand
 	 */
 	public SmartComputer(ArrayDeque<Card> hand){
@@ -11,20 +17,23 @@ public class SmartComputer extends Player {
 	}
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param playerName
 	 */
 	public SmartComputer(String playerName) {
 		this.playerName = playerName;
 	}
 	
+	/**
+	 * This player always selects the highest attribute. 
+	 */
 	public void takeInput() {
 		//Pick the highest attribute
-		for(int m = 0; m < hand.peekFirst().attributes.size(); m++ ) {
+		for(int m = 0; m < hand.peekFirst().getAttributes().size(); m++ ) {
 			
-			for(int n = m+1; n < hand.peekFirst().attributes.size(); n++) {
+			for(int n = m+1; n < hand.peekFirst().getAttributes().size(); n++) {
 			
-				if (hand.peekFirst().attributes.get(m).value > hand.peekFirst().attributes.get(n).value) {
+				if (hand.peekFirst().getAttributes().get(m).getValue() > hand.peekFirst().getAttributes().get(n).getValue()) {
 					
 					numAttribute = m;
 					
@@ -34,16 +43,5 @@ public class SmartComputer extends Player {
 				}
 			}
 		}
-	}
-	
-	/**
-	 * 
-	 */
-	public String selectAttribute() {
-		
-		
-		Card card = hand.peekFirst(); //first card
-		Attribute a = card.attributes.get(numAttribute);
-		return a.getName();	
 	}
 }

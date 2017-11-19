@@ -1,9 +1,15 @@
 import java.util.ArrayDeque;
 
+/**
+ * PredictableComputer.java - predictable computer player.
+ * @see Player
+ * @author Jack Gee
+ * @version 1.0
+ */
 public class PredictableComputer extends Player {
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param hand
 	 */
 	public PredictableComputer(ArrayDeque<Card> hand){
@@ -11,7 +17,7 @@ public class PredictableComputer extends Player {
 	}  
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param playerName
 	 */
 	public PredictableComputer(String playerName) {
@@ -19,18 +25,9 @@ public class PredictableComputer extends Player {
 	}
 	
 	/**
-	 * 
+	 * This player always selects the first attribute. 
 	 */
 	public void takeInput() {
 		numAttribute = 0;
-	}
-	
-	/**
-	 * 
-	 */
-	public String selectAttribute() {
-		Card card = hand.peekFirst(); //first card
-		Attribute a = card.attributes.get(numAttribute);
-		return a.getName();
 	}
 }

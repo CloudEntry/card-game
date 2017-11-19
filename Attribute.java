@@ -1,13 +1,22 @@
+/**
+ * Attribute.java - custom object to represent a card's attribute. 
+ * @author Jack Gee
+ * @version 1.0
+ */
 public class Attribute {
 	
-	//modifier switched for testing
+	/**
+	 * Name of the attribute. 
+	 */
 	private String name;
 	
-	//modifier switched for testing
-	public int value;
+	/**
+	 * Value of the attribute. 
+	 */
+	private int value;
 	 
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param name
 	 * @param value
 	 */
@@ -17,18 +26,26 @@ public class Attribute {
 	}
 	
 	/**
-	 * 
+	 * Prints the name of the attribute and its value. 
 	 */
 	public void print() {
-		System.out.println("  " + name + ": " + value);
+		System.out.println(name + ": " + value);
 		
 	}
 
 	/**
-	 * 
-	 * @return name
+	 * Gets the name of the attribute. 
+	 * @return String name
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	/**
+	 * Gets the value of the attribute. 
+	 * @return int value
+	 */
+	public int getValue() {
+		return value;
 	}
 }

@@ -1,10 +1,16 @@
 import java.util.ArrayDeque;
 import java.util.Scanner;
 
+/**
+ * Human.java - human player.
+ * @see Player
+ * @author Jack Gee
+ * @version 1.0
+ */
 public class Human extends Player {
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param hand
 	 */
 	public Human(ArrayDeque<Card> hand){
@@ -12,7 +18,7 @@ public class Human extends Player {
 	}
 	
 	/**
-	 * 
+	 * Constructor method. 
 	 * @param playerName
 	 */
 	public Human(String playerName) {
@@ -20,7 +26,7 @@ public class Human extends Player {
 	}
 	
 	/**
-	 * 
+	 * Input is selected by the user from the console. 
 	 */
 	public void takeInput() {
 		//Selecting Attribute
@@ -28,18 +34,9 @@ public class Human extends Player {
 		
 		while(true) {
 			Scanner s = new Scanner(System.in);
-			numAttribute = Integer.parseInt(s.next()) - 1;
-			if(numAttribute > -1 && numAttribute < hand.peekFirst().attributes.size()) break;
+			if(s.hasNextInt()) numAttribute = Integer.parseInt(s.next()) - 1;
+			if(numAttribute > -1 && numAttribute < hand.peekFirst().getAttributes().size()) break;
+			System.out.println("Please input a valid number (one of the options):");
 		}	
-	}
-	
-	/**
-	 * 
-	 */
-	public String selectAttribute() {
-		
-		Card card = hand.peekFirst(); //first card
-		Attribute a = card.attributes.get(numAttribute);
-		return a.getName();
 	}
 }
